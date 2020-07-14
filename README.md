@@ -19,9 +19,10 @@ See openssl docs
 
 ### Create Test Agent Container
 
-1) Save the docker image: ```docker save -o agent.tar  vpnscaletest_agent:latest```
-2) Copy agent.tar to a HTTP root
-3) Run bootstap command on each vm: ```boostrap_vm.sh $test_controller $drop_server agent.tar $(docker image ls | grep vpnscaletest_agent | awk '{print $3}')```
+1) Save the agent image: ```docker save -o agent.tar  vpnscaletest_agent:latest```
+2) Copy agent.tar to a HTTP root: ```cp agent.tar /var/html/agent.tar```
+3) Save the agent image id: ```image_id=$(docker image ls | grep vpnscaletest_agent | awk '{print $3}')```
+4) Run bootstap command on each vm: ```boostrap_vm.sh $test_controller $drop_server agent.tar $image_id```
 
 Repeat accross one or more test VMs until there are enough clients.
 
